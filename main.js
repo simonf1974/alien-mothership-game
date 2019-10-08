@@ -111,9 +111,10 @@ class MotherShip {
   }
 }
 
-const updateAlien = (id, text, opacity, isAlive) => {
+const updateAlien = (id, hitPoints, opacity, isAlive) => {
   const targetAlienElement = document.getElementById(id);
-  targetAlienElement.getElementsByTagName("span")[1].innerText = text;
+  const message = isAlive ? `Energy: ${hitPoints}` : " on sabbatical";
+  targetAlienElement.getElementsByTagName("span")[1].innerText = message;
   targetAlienElement.getElementsByTagName("img")[0].style.opacity = opacity;
   targetAlienElement.style.color = isAlive ? "white" : "red";
 };
@@ -138,15 +139,19 @@ const generateAliens = () => {
 
 const fire = () => {
   const targetAlien = ship.fire();
-  const message = targetAlien.isAlive ? ` (${targetAlien.currentHitPoints})` : " on sabbatical";
-  updateAlien(targetAlien.id, message, targetAlien.currentHitPointPct, targetAlien.isAlive);
+  updateAlien(
+    targetAlien.id,
+    targetAlien.currentHitPoints,
+    targetAlien.currentHitPointPct,
+    targetAlien.isAlive
+  );
   if (ship.isGameOver) updateGameStatus(true);
 };
 
 const start = () => {
   ship = new MotherShip();
   generateAliens();
-  ship.aliens.forEach(alien => updateAlien(alien.id, ` (${alien.currentHitPoints})`, 1, true));
+  ship.aliens.forEach(alien => updateAlien(alien.id, alien.currentHitPoints, 1, true));
   updateGameStatus(false);
 };
 
