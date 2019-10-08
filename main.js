@@ -1,6 +1,7 @@
 class Alien {
   currentHitPoints = 0;
   hitPointReducAmt = 0;
+  startingHitpoints = 0;
   isQueen = false;
   id = "";
   static initialObjectNum = 0;
@@ -21,10 +22,15 @@ class Alien {
     }
     return objects;
   }
+
+  get currentHitPointPct() {
+    if (this.currentHitPoints === 0) return 0.1;
+    else return this.currentHitPoints / this.startingHitpoints;
+  }
 }
 
 class Queen extends Alien {
-  currentHitPoints = 80;
+  startingHitpoints = 80;
   hitPointReducAmt = 7;
   isQueen = true;
   static initialObjectNum = 1;
@@ -32,6 +38,7 @@ class Queen extends Alien {
   constructor(num) {
     super();
     this.id = "queen";
+    this.currentHitPoints = this.startingHitpoints;
   }
 
   static createNewObject(num) {
@@ -40,13 +47,14 @@ class Queen extends Alien {
 }
 
 class Worker extends Alien {
-  currentHitPoints = 68;
+  startingHitpoints = 68;
   hitPointReducAmt = 10;
   static initialObjectNum = 5;
 
   constructor(num) {
     super();
     this.id = "worker" + num;
+    this.currentHitPoints = this.startingHitpoints;
   }
 
   static createNewObject(num) {
@@ -55,13 +63,14 @@ class Worker extends Alien {
 }
 
 class Drone extends Alien {
-  currentHitPoints = 60;
+  startingHitpoints = 60;
   hitPointReducAmt = 12;
   static initialObjectNum = 8;
 
   constructor(num) {
     super();
     this.id = "drone" + num;
+    this.currentHitPoints = this.startingHitpoints;
   }
 
   static createNewObject(num) {
@@ -79,7 +88,7 @@ class MotherShip {
   }
 
   fire() {
-    if (this.isGameOver) throw "Game is over. You should not be calling this method";
+    if (this.isGameOver) throw Error("Game is over. You should not be calling this method");
 
     const alienToTarget = this.aliveAliens[Math.floor(Math.random() * this.aliveAliens.length)];
     alienToTarget.hit();
@@ -102,23 +111,43 @@ class MotherShip {
   }
 }
 
+const updateAlien = (id, text, opacity, isAlive) => {
+  const targetAlienElement = document.getElementById(id);
+  targetAlienElement.getElementsByTagName("span")[1].innerText = text;
+  targetAlienElement.getElementsByTagName("img")[0].style.opacity = opacity;
+  targetAlienElement.style.color = isAlive ? "white" : "red";
+};
+
+const updateGameStatus = isGameOver => {
+  document.getElementById("fire-button").disabled = isGameOver;
+  document.getElementById("game-over").innerText = isGameOver ? "Game is over" : "Game on!";
+  document.getElementById("game-over").style.color = isGameOver ? "red" : "white";
+};
+
+const generateAliens = () => {
+  let html = `<li id="queen"><span></span><span></span><img src="./images/jenna.jpg" alt=""></li>`;
+
+  for (let i = 0; i < Worker.initialObjectNum; i++)
+    html += `<li id="worker${i}"><span></span><span></span><img src="./images/shea.jpg" alt=""></li>`;
+
+  for (let i = 0; i < Drone.initialObjectNum; i++)
+    html += `<li id="drone${i}"><span></span><span></span><img src="./images/ollie.jpg" alt=""></li>`;
+
+  document.getElementsByClassName("grid")[0].innerHTML = html;
+};
+
 const fire = () => {
   const targetAlien = ship.fire();
-  const message = `is ${targetAlien.isAlive ? "alive" : "dead"} (${targetAlien.currentHitPoints})`;
-  document.getElementById(targetAlien.id).getElementsByTagName("span")[0].innerText = message;
-  document.getElementById("game-over").innerText = `Game is ${ship.isGameOver ? "" : " not "}over`;
-  if (ship.isGameOver) document.getElementById("fire-button").disabled = true;
+  const message = targetAlien.isAlive ? ` (${targetAlien.currentHitPoints})` : " on sabbaticle";
+  updateAlien(targetAlien.id, message, targetAlien.currentHitPointPct, targetAlien.isAlive);
+  if (ship.isGameOver) updateGameStatus(true);
 };
 
 const start = () => {
   ship = new MotherShip();
-  ship.aliens.forEach(alien => {
-    document
-      .getElementById(alien.id)
-      .getElementsByTagName("span")[0].innerText = `is alive (${alien.currentHitPoints})`;
-  });
-  document.getElementById("fire-button").disabled = false;
-  document.getElementById("game-over").innerText = "Game is not over";
+  generateAliens();
+  ship.aliens.forEach(alien => updateAlien(alien.id, ` (${alien.currentHitPoints})`, 1, true));
+  updateGameStatus(false);
 };
 
 start();

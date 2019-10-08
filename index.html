@@ -7,32 +7,23 @@
     <title>Alien Mothership Game</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="./main.css">
 </head>
 
 <body>
+    <main>
+        <p id="game-over">Game is not over</p>
 
-    <ul>
-        <li id="queen">Queen <span></span></li>
-        <li id="worker0">Worker0 <span></span></li>
-        <li id="worker1">Worker1 <span></span></li>
-        <li id="worker2">Worker2 <span></span></li>
-        <li id="worker3">Worker3 <span></span></li>
-        <li id="worker4">Worker4 <span></span></li>
-        <li id="drone0">Drone0 <span></span></li>
-        <li id="drone1">Drone1 <span></span></li>
-        <li id="drone2">Drone2 <span></span></li>
-        <li id="drone3">Drone3 <span></span></li>
-        <li id="drone4">Drone4 <span></span></li>
-        <li id="drone5">Drone5 <span></span></li>
-        <li id="drone6">Drone6 <span></span></li>
-        <li id="drone7">Drone7 <span></span></li>
-    </ul>
+        <div id="buttons">
+            <button onclick="fire()" id="fire-button">Work harder</button>
+            <button onclick="start()">Restart game</button>
+        </div>
 
-    <p id="game-over">Game is not over</p>
-
-    <button onclick="fire()" id="fire-button">Fire</button>
-    <button onclick="start()">Restart game</button>
+        <div id="grid-container">
+            <ul class="grid">
+            </ul>
+        </div>
+    </main>
 
     <script src="./main.js" async defer></script>
 </body>
