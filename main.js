@@ -138,7 +138,7 @@ const generateAliens = () => {
 
 const fire = () => {
   const targetAlien = ship.fire();
-  const message = targetAlien.isAlive ? ` (${targetAlien.currentHitPoints})` : " on sabbaticle";
+  const message = targetAlien.isAlive ? ` (${targetAlien.currentHitPoints})` : " on sabbatical";
   updateAlien(targetAlien.id, message, targetAlien.currentHitPointPct, targetAlien.isAlive);
   if (ship.isGameOver) updateGameStatus(true);
 };
