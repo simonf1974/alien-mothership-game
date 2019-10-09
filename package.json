@@ -1,0 +1,14 @@
+{
+  "name": "alien-mothership-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/simonfreedland/alien-mothership-game.git",
+  "author": "Simon Freedland <simon.freedland@nology.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.23.0"
+  },
+  "scripts": {
+    "build-css": "sass .:."
+  }
+}
