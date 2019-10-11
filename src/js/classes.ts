@@ -15,6 +15,8 @@ export class Alien {
     return this.currentHitPoints > 0;
   }
 
+  static createNewObject(num) {}
+
   static createNewObjects() {
     const objects = [];
     for (let i = 0; i < this.initialObjectNum; i++) {
@@ -79,6 +81,9 @@ export class Drone extends Alien {
 }
 
 export class MotherShip {
+  public aliens;
+  public isGameOver;
+
   constructor() {
     this.aliens = []
       .concat(Queen.createNewObjects())

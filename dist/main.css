@@ -1,0 +1,49 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0; }
+
+body {
+  background-image: url("../images/Star-03500.jpg");
+  background-size: cover; }
+  body p {
+    font-size: 2.8em;
+    text-align: center;
+    margin: 20px 0; }
+  body #buttons {
+    display: flex;
+    justify-content: center; }
+    body #buttons button {
+      margin: 10px;
+      width: 130px;
+      height: 40px;
+      font-size: 1.1em; }
+      body #buttons button:hover {
+        cursor: pointer; }
+  body #grid-container {
+    display: flex;
+    justify-content: center; }
+    body #grid-container .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      margin: 20px 60px 60px 60px; }
+      body #grid-container .grid li {
+        list-style-type: none;
+        margin: 10px;
+        text-align: center;
+        font-size: 1.2em; }
+        body #grid-container .grid li img {
+          padding-top: 5px;
+          width: 100%; }
+
+@media only screen and (min-width: 720px) {
+  body #grid-container .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; } }
+
+@media only screen and (min-width: 900px) {
+  body #grid-container .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; } }
+
+@media only screen and (min-width: 1050px) {
+  body #grid-container .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; } }
