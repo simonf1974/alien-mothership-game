@@ -1,4 +1,4 @@
-import { MotherShip, Aliens } from "./classes";
+import { MotherShip } from "./classes";
 
 describe("These are my class tests", () => {
   let ship;

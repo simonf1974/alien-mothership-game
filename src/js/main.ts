@@ -1,4 +1,4 @@
-import { MotherShip, Drone, Worker } from "./classes.js";
+import { MotherShip, Drone, Worker } from "./classes";
 
 const updateAlien = (id, hitPoints, opacity, isAlive) => {
   const targetAlienElement = document.getElementById(id);
@@ -9,7 +9,8 @@ const updateAlien = (id, hitPoints, opacity, isAlive) => {
 };
 
 const updateGameStatus = isGameOver => {
-  document.getElementById("fire-button").disabled = isGameOver;
+  const button = document.getElementById("fire-button") as HTMLButtonElement;
+  button.disabled = isGameOver;
   document.getElementById("game-over").innerText = isGameOver ? "Game is over" : "Game on!";
   document.getElementById("game-over").style.color = isGameOver ? "red" : "white";
 };
