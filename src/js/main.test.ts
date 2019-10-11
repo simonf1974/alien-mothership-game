@@ -16,8 +16,6 @@ describe("These are my class tests", () => {
   test("Check firing on Queen and killing her", () => {
     expect(ship.aliens.length).toEqual(14);
     expect(ship.aliveAliens.length).toEqual(14);
-
-    global.Math.random = () => 0.0714285714285714;
     fire(1, 0, ship);
     expect(ship.aliveAliens.length).toEqual(14);
     expect(ship.aliens[0].currentHitPoints).toEqual(73);
@@ -112,5 +110,35 @@ describe("These are my class tests", () => {
     expect(ship.aliens[13].currentHitPoints).toEqual(0);
     expect(ship.aliens[13].isAlive).toEqual(false);
     expect(ship.isGameOver).toEqual(false);
+  });
+
+  test("Check killing some aliens then queen", () => {
+    // Almost kill queen
+    fire(11, 0, ship);
+    expect(ship.aliveAliens.length).toEqual(14);
+    expect(ship.aliens[0].currentHitPoints).toEqual(3);
+    expect(ship.aliens[0].isAlive).toEqual(true);
+    expect(ship.isGameOver).toEqual(false);
+
+    // Kill worker1
+    fire(7, 2, ship);
+    expect(ship.aliveAliens.length).toEqual(13);
+    expect(ship.aliens[2].currentHitPoints).toEqual(0);
+    expect(ship.aliens[2].isAlive).toEqual(false);
+    expect(ship.isGameOver).toEqual(false);
+
+    // Kill Drone 3
+    fire(5, 7, ship);
+    expect(ship.aliveAliens.length).toEqual(12);
+    expect(ship.aliens[8].currentHitPoints).toEqual(0);
+    expect(ship.aliens[8].isAlive).toEqual(false);
+    expect(ship.isGameOver).toEqual(false);
+
+    //Kill queen
+    fire(1, 0, ship);
+    expect(ship.aliveAliens.length).toEqual(11);
+    expect(ship.aliens[0].currentHitPoints).toEqual(0);
+    expect(ship.aliens[0].isAlive).toEqual(false);
+    expect(ship.isGameOver).toEqual(true);
   });
 });

@@ -1,4 +1,4 @@
-export class Alien {
+export abstract class Alien {
   currentHitPoints: number = 0;
   hitPointReducAmt: number = 0;
   startingHitpoints: number = 0;
@@ -15,8 +15,9 @@ export class Alien {
     return this.currentHitPoints > 0;
   }
 
-  static createNewObject(num: number): Alien {
-    return;
+  get currentHitPointPct(): number {
+    if (this.currentHitPoints === 0) return 0.1;
+    else return this.currentHitPoints / this.startingHitpoints;
   }
 
   static createNewObjects(): Alien[] {
@@ -27,9 +28,8 @@ export class Alien {
     return objects;
   }
 
-  get currentHitPointPct(): number {
-    if (this.currentHitPoints === 0) return 0.1;
-    else return this.currentHitPoints / this.startingHitpoints;
+  static createNewObject(num: number): Alien {
+    return;
   }
 }
 
