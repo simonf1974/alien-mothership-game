@@ -1,88 +1,90 @@
 export class Alien {
-  currentHitPoints = 0;
-  hitPointReducAmt = 0;
-  startingHitpoints = 0;
-  isQueen = false;
-  id = "";
-  static initialObjectNum = 0;
+  currentHitPoints: number = 0;
+  hitPointReducAmt: number = 0;
+  startingHitpoints: number = 0;
+  isQueen: boolean = false;
+  id: string = "";
+  static initialObjectNum: number = 0;
 
-  hit() {
+  hit(): number {
     this.currentHitPoints = Math.max(this.currentHitPoints - this.hitPointReducAmt, 0);
     return this.currentHitPoints;
   }
 
-  get isAlive() {
+  get isAlive(): boolean {
     return this.currentHitPoints > 0;
   }
 
-  static createNewObject(num) {}
+  static createNewObject(num: number): Alien {
+    return;
+  }
 
-  static createNewObjects() {
-    const objects = [];
-    for (let i = 0; i < this.initialObjectNum; i++) {
+  static createNewObjects(): Alien[] {
+    const objects: Alien[] = [];
+    for (let i: number = 0; i < this.initialObjectNum; i++) {
       objects.push(this.createNewObject(i));
     }
     return objects;
   }
 
-  get currentHitPointPct() {
+  get currentHitPointPct(): number {
     if (this.currentHitPoints === 0) return 0.1;
     else return this.currentHitPoints / this.startingHitpoints;
   }
 }
 
 export class Queen extends Alien {
-  startingHitpoints = 80;
-  hitPointReducAmt = 7;
-  isQueen = true;
-  static initialObjectNum = 1;
+  startingHitpoints: number = 80;
+  hitPointReducAmt: number = 7;
+  isQueen: boolean = true;
+  static initialObjectNum: number = 1;
 
-  constructor(num) {
+  constructor(num: number) {
     super();
     this.id = "queen";
     this.currentHitPoints = this.startingHitpoints;
   }
 
-  static createNewObject(num) {
+  static createNewObject(num: number): Queen {
     return new Queen(num);
   }
 }
 
 export class Worker extends Alien {
-  startingHitpoints = 68;
-  hitPointReducAmt = 10;
-  static initialObjectNum = 5;
+  startingHitpoints: number = 68;
+  hitPointReducAmt: number = 10;
+  static initialObjectNum: number = 5;
 
-  constructor(num) {
+  constructor(num: number) {
     super();
     this.id = "worker" + num;
     this.currentHitPoints = this.startingHitpoints;
   }
 
-  static createNewObject(num) {
+  static createNewObject(num: number): Worker {
     return new Worker(num);
   }
 }
 
 export class Drone extends Alien {
-  startingHitpoints = 60;
-  hitPointReducAmt = 12;
-  static initialObjectNum = 8;
+  startingHitpoints: number = 60;
+  hitPointReducAmt: number = 12;
+  static initialObjectNum: number = 8;
 
-  constructor(num) {
+  constructor(num: number) {
     super();
     this.id = "drone" + num;
     this.currentHitPoints = this.startingHitpoints;
   }
 
-  static createNewObject(num) {
+  static createNewObject(num: number): Drone {
     return new Drone(num);
   }
 }
 
 export class MotherShip {
-  public aliens;
-  public isGameOver;
+  public aliens: Alien[];
+  public isGameOver: boolean;
 
   constructor() {
     this.aliens = []
@@ -92,10 +94,12 @@ export class MotherShip {
     this.isGameOver = false;
   }
 
-  fire() {
+  fire(): Alien {
     if (this.isGameOver) throw Error("Game is over. You should not be calling this method");
 
-    const alienToTarget = this.aliveAliens[Math.floor(Math.random() * this.aliveAliens.length)];
+    const alienToTarget: Alien = this.aliveAliens[
+      Math.floor(Math.random() * this.aliveAliens.length)
+    ];
     alienToTarget.hit();
 
     if (alienToTarget.isAlive) {
@@ -109,7 +113,7 @@ export class MotherShip {
     return alienToTarget;
   }
 
-  get aliveAliens() {
+  get aliveAliens(): Alien[] {
     return this.aliens.filter(alien => {
       return alien.isAlive;
     });

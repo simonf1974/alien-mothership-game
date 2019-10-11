@@ -1,12 +1,12 @@
 import { MotherShip } from "./classes";
 
 describe("These are my class tests", () => {
-  let ship;
+  let ship: MotherShip;
   beforeEach(() => {
     ship = new MotherShip();
   });
 
-  const fire = (numOfFires, indexOfAlien, ship) => {
+  const fire = (numOfFires: number, indexOfAlien: number, ship: MotherShip): void => {
     global.Math.random = () => indexOfAlien / ship.aliveAliens.length;
     for (let i = 0; i < numOfFires; i++) {
       ship.fire();
