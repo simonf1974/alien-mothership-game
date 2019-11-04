@@ -13,3 +13,7 @@ Inheritance was used to hold the common logic of the game characters, with speci
 I also used a game class to hold the overall state (e.g. array of characters) and logic for when the "fire" button was clicked (e.g. pick random character to "fire" on and determine if game is over).
 
 This project also implements TypeScript to get the benefits of strong typing and Jest for automated testing of the game logic encapsulated in the classes.
+
+## Screenshot
+
+![Screenshot](readme-img.png)
